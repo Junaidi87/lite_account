@@ -3,3 +3,5 @@
 #export{float:right;font-size:12px;padding:9px 12px;background:#f2f5ec;color:#315b44;border:1px solid #dce2d7;border-radius:6px;cursor:pointer}#export:disabled{opacity:.5;cursor:default}@media(max-width:400px){#export{float:none;display:block;margin-top:12px}}
 
 .edit,#cancel-edit{border:1px solid #dce2d7;background:#f2f5ec;color:#315b44;border-radius:6px;padding:7px 9px;cursor:pointer;font-size:12px}.edit{flex-shrink:0}#cancel-edit{margin-top:10px;width:100%}@media(max-width:480px){.transaction{flex-wrap:wrap}.transaction .detail{flex-basis:45%}}
+
+#category{display:block;width:100%;padding:12px;background:#fcfdfb}#custom-category-field label{display:block;font-size:12px;font-weight:600;margin:18px 0 8px}
