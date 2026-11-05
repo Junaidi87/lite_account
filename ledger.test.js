@@ -19,8 +19,17 @@ test('CSV preserves quoted descriptions and decimal amounts and neutralizes form
   {date:'2026-11-05',type:'expense',description:'Food, "lunch"\nand tea',cents:2520},
   {date:'2026-11-05',type:'income',description:'=1+1',cents:100000}
  ]);
- assert.ok(csv.startsWith('\uFEFF"Date","Type","Description","Amount (MYR)"\r\n'));
+ assert.ok(csv.startsWith('\uFEFF"Date","Type","Description","Amount (MYR)","Category"\r\n'));
  assert.ok(csv.includes('"Food, ""lunch""\nand tea","25.20"'));
  assert.ok(csv.includes('"\'=1+1","1000.00"'));
- assert.equal(entriesToCsv([]), '\uFEFF"Date","Type","Description","Amount (MYR)"\r\n');
+ assert.equal(entriesToCsv([]), '\uFEFF"Date","Type","Description","Amount (MYR)","Category"\r\n');
+});
+
+test('categories support legacy entries and reject invalid new category values', () => {
+ const entry = {id:'test',description:'Food',type:'expense',cents:100,date:'2026-11-05'};
+ assert.ok(validEntry(entry));
+ assert.ok(validEntry({...entry,category:'Pet care'}));
+ for (const category of ['', ' ', 123, 'x'.repeat(61)]) assert.ok(!validEntry({...entry,category}));
+ assert.ok(entriesToCsv([{...entry,category:'=SUM(1)'}]).includes('"\'=SUM(1)"'));
+ assert.ok(entriesToCsv([entry]).includes('"Uncategorized"'));
 });

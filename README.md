@@ -21,3 +21,5 @@ Entries are saved in this browser's local storage for the current origin. They a
 Use **Export all CSV** to download all saved transactions, regardless of the current filter. The file includes date, type, description, and amount in MYR and opens in spreadsheet apps. Formula-like descriptions are prefixed with an apostrophe for spreadsheet safety. CSV import is not yet supported.
 
 Select **Edit** beside a transaction to change its type, description, amount, or date. **Save changes** updates the existing entry; **Cancel edit** leaves it unchanged.
+
+Choose a common category or select **Other (enter your own)** to provide a custom label. Categories appear in history and CSV exports. Older entries appear as Uncategorized until edited.
