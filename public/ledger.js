@@ -10,3 +10,11 @@ export function amountToCents(value) {
 export function validEntry(e) {
   return e && typeof e.id === 'string' && typeof e.description === 'string' && e.description.trim().length > 0 && e.description.length <= 120 && ['income', 'expense'].includes(e.type) && Number.isSafeInteger(e.cents) && e.cents > 0 && /^\d{4}-\d{2}-\d{2}$/.test(e.date);
 }
+
+export function entriesToCsv(entries) {
+  const cell = value => '"' + String(value).replaceAll('"', '""') + '"';
+  // Prevent spreadsheet applications from interpreting descriptions as formulas.
+  const safeDescription = text => /^[\s]*[=+@-]/.test(text) || /^[\t\r\n]/.test(text) ? "'" + text : text;
+  const rows = [['Date', 'Type', 'Description', 'Amount (MYR)'], ...entries.map(e => [e.date, e.type, safeDescription(e.description), (e.cents / 100).toFixed(2)])];
+  return '\uFEFF' + rows.map(row => row.map(cell).join(',')).join('\r\n') + '\r\n';
+}
